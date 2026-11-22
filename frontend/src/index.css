@@ -1,0 +1,305 @@
+@import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  --color-ink: #0f172a;
+  --color-accent: #1e3a5f;
+  --color-accent-hover: #152c4a;
+  --color-surface-dark: #111827;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    color: #0f172a;
+    background-color: #f8fafc;
+    color-scheme: light;
+  }
+
+  html.dark {
+    color: #f1f5f9;
+    background-color: #0b1120;
+    color-scheme: dark;
+    letter-spacing: 0.01em;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 100%
+  );
+  animation: skeleton-shimmer 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+html.dark .skeleton-shimmer::after {
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(148, 163, 184, 0.14) 50%,
+    transparent 100%
+  );
+}
+
+@keyframes fab-aurora-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fab-sheen-sweep {
+  0%,
+  55% {
+    transform: translateX(-120%) rotate(25deg);
+  }
+  100% {
+    transform: translateX(420%) rotate(25deg);
+  }
+}
+
+@keyframes fab-halo-pulse {
+  0% {
+    transform: scale(0.96);
+    opacity: 0.5;
+  }
+  70% {
+    transform: scale(1.28);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.28);
+    opacity: 0;
+  }
+}
+
+.fab-add-aurora {
+  background: conic-gradient(
+    from 0deg,
+    #1e3a5f 0deg,
+    #2563eb 115deg,
+    #0ea5e9 195deg,
+    #1d4ed8 280deg,
+    #1e3a5f 360deg
+  );
+  animation: fab-aurora-spin 6s linear infinite;
+}
+
+html.dark .fab-add-aurora {
+  background: conic-gradient(
+    from 0deg,
+    #1d4ed8 0deg,
+    #3b82f6 115deg,
+    #38bdf8 195deg,
+    #6366f1 280deg,
+    #1d4ed8 360deg
+  );
+}
+
+.fab-add-sheen {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.34) 50%,
+    transparent 100%
+  );
+  animation: fab-sheen-sweep 3.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.fab-add-halo {
+  animation: fab-halo-pulse 2.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .skeleton-shimmer::after,
+  .fab-add-sheen,
+  .fab-add-halo {
+    display: none;
+  }
+}
+
+@layer components {
+  /* App Top Header Grid */
+  .app-header-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    height: 100%;
+    max-width: 1160px;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .app-header-inner {
+      gap: 1rem;
+      padding-inline: 2rem;
+    }
+  }
+
+  /* CatalogView Layout Primitives */
+  .catalog-shell {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .catalog-shell {
+      gap: 1.5rem;
+    }
+  }
+
+  .catalog-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+  }
+
+  @media (min-width: 1024px) {
+    .catalog-metrics-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .catalog-metric-cell {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    text-align: left;
+    padding: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .catalog-metric-cell {
+      padding: 1.25rem;
+    }
+  }
+
+  .catalog-toolbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .catalog-toolbar-controls {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    align-items: end;
+  }
+
+  @media (min-width: 640px) {
+    .catalog-toolbar-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .catalog-toolbar {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .catalog-toolbar-controls {
+      flex-wrap: nowrap;
+    }
+  }
+
+  /* Responsive Book Grid (Mobile 1-col, Small Tablet 2-col) */
+  .catalog-book-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+    padding: 0;
+  }
+
+  @media (min-width: 640px) {
+    .catalog-book-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      padding: 0;
+    }
+  }
+
+  .catalog-book-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.875rem;
+    height: 100%;
+    padding: 1rem;
+  }
+
+  /* Desktop Book Table Column Rhythm */
+  .catalog-table th,
+  .catalog-table td {
+    padding: 0.875rem 1rem;
+    vertical-align: middle;
+  }
+
+  .catalog-table th:first-child,
+  .catalog-table td:first-child {
+    padding-left: 1.25rem;
+  }
+
+  .catalog-table th:last-child,
+  .catalog-table td:last-child {
+    padding-right: 1.25rem;
+  }
+}
