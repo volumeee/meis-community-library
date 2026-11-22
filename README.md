@@ -1,5 +1,7 @@
 # Mei's Community Library
 
+> Demo: [library.bagos.web.id](https://library.bagos.web.id) · Password: `password123`
+
 A full-stack library inventory and lending application. It provides a secured catalog, multi-book checkout workflow, lending history, bilingual UI, and a production Docker deployment path.
 
 | Layer       | Stack                                                |
