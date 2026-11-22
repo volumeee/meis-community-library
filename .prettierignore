@@ -1,0 +1,6 @@
+dist/
+frontend/dist/
+dist-server/
+node_modules/
+package-lock.json
+*.log
