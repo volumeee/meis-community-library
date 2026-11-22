@@ -5,6 +5,8 @@ frontend/dist/
 dist-server/
 coverage/
 data/
+!backend/src/data/
+!backend/src/data/*.ts
 .playwright-cli/
 .DS_Store
 *.log
