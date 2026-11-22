@@ -2,6 +2,8 @@
 
 > Demo: [library.bagos.web.id](https://library.bagos.web.id) · Password: `password123`
 
+![Live Book Catalog demo](docs/images/live-demo-catalog.png)
+
 A full-stack library inventory and lending application. It provides a secured catalog, multi-book checkout workflow, lending history, bilingual UI, and a production Docker deployment path.
 
 | Layer       | Stack                                                |
